@@ -54,7 +54,36 @@ export default function HeaderCliente() {
                     </div>
 
                     {/* Links */}
-
+                    <nav className='flex flex-col p-4 space-y-4'>
+                        <Link
+                            to='/home'
+                            className='text-lg font-medium text-gray-700 hover:text-blue-500 hover:bg-blue-50 px-4 py-2 rounded-lg transition'
+                            onClick={toggleMenu}
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            to='/menu'
+                            className='text-lg font-medium text-gray-700 hover:text-blue-500 hover:bg-blue-50 px-4 py-2 rounded-lg transition'
+                            onClick={toggleMenu}
+                        >
+                            Menu
+                        </Link>
+                        <a
+                            href='#'
+                            className='text-lg font-medium text-gray-700 hover:text-blue-500 hover:bg-blue-50 px-4 py-2 rounded-lg transition'
+                            onClick={toggleMenu}
+                        >
+                            Reservas
+                        </a>
+                        <a
+                            href='#'
+                            className='text-lg font-medium text-gray-700 hover:text-blue-500 hover:bg-blue-50 px-4 py-2 rounded-lg transition'
+                            onClick={toggleMenu}
+                        >
+                            Contacto
+                        </a>
+                    </nav>
                 </div>
             </div>
         </header>
