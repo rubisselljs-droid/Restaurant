@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import ClienteLayout from './layouts/ClienteLayout/ClienteLayout'
 import Home from './pages/client/Home'
+import Login from './layouts/Login'
 
 const Menu = lazy(() => import('./pages/client/Menu'))
 
@@ -17,6 +18,7 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="menu" element={<Menu />} />
           </Route>
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
