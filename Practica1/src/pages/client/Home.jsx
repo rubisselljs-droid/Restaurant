@@ -1,4 +1,4 @@
-import CartAtent from "../../components/client/cartAtent";
+import CartAtent from "../../components/Admin/cartAtent";
 
 export default function Home() {
   const bgImage = "https://i.pinimg.com/1200x/36/83/6c/36836c7dda1870a6a4868713cd6d71d7.jpg";

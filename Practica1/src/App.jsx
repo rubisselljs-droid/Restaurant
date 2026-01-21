@@ -5,8 +5,10 @@ import { Suspense, lazy } from 'react'
 import ClienteLayout from './layouts/ClienteLayout/ClienteLayout'
 import Home from './pages/client/Home'
 import Login from './layouts/Login'
-
+import Admin from './layouts/AdminLayout/Admin'
+import Producto from './pages/admin/Producto'
 const Menu = lazy(() => import('./pages/client/Menu'))
+
 
 function App() {
   return (
@@ -17,6 +19,10 @@ function App() {
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
             <Route path="menu" element={<Menu />} />
+          </Route>
+
+          <Route path="/admin" element={<Admin />}>
+            <Route path="producto" element={<Producto />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
