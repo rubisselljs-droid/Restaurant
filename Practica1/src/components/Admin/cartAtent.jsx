@@ -1,57 +1,83 @@
-import React from "react";
-
-export default function CartAtent({ name, image, price, description }) {
+export default function CartAtent({
+  id,
+  nombre,
+  imagen,
+  precio,
+  descripcion,
+  stock,
+  eliminar,
+  editar,
+  esAdmin,
+}) {
   return (
-    <div className="group relative w-80 rounded-2xl bg-[#1a1a1a] shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-amber-900/20 hover:-translate-y-1 mx-auto border border-white/5">
-      {/* Image Section with Overlay */}
-      <div className="relative h-56 w-full overflow-hidden">
-        <img
-          src={image}
-          alt={name}
-          className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+    <div className="group relative flex flex-col h-full bg-slate-900 rounded-3xl shadow-xl hover:shadow-blue-900/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-slate-800">
+      
+      {/* Contenedor de imagen */}
+      <div className="relative h-72 overflow-hidden">
+        <img 
+          src={imagen} 
+          alt={nombre} 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-[#1a1a1a] via-transparent to-transparent opacity-90" />
-
-        {/* Floating Price Badge */}
-        <div className="absolute top-4 right-4 overflow-hidden rounded-full bg-white/10 px-3 py-1 backdrop-blur-md border border-white/20 shadow-lg">
-          <span className="text-amber-400 font-serif font-bold tracking-wider">
-            {price}
-          </span>
+        
+        {/* Gradiente sobre la imagen para mejorar legibilidad si hubiera texto, o estilo */}
+        <div className="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent opacity-90"></div>
+        
+        {/* Precio Flotante */}
+        <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center gap-1 group-hover:bg-blue-600/80 group-hover:border-blue-500 transition-colors duration-300">
+          <span className="text-cyan-300">$</span>
+          {precio.toLocaleString('es-ES')}
         </div>
       </div>
-
-      {/* Content Section */}
-      <div className="relative px-6 pb-6 mt-[-20px]">
-        <div className="mb-4">
-          <h3 className="text-xl font-medium text-white font-serif tracking-wide mb-2 group-hover:text-amber-400 transition-colors">
-            {name}
-          </h3>
-          <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
-            {description}
+      
+      {/* Contenido de la tarjeta */}
+      <div className="p-6 flex flex-col grow relative z-10 -mt-8">
+        {/* Fondo del contenido con gradiente suave */}
+        <div className="absolute inset-0 bg-slate-900 rounded-t-3xl border-t border-slate-800"></div>
+        
+        <div className="relative z-10 flex flex-col grow">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-300 to-teal-300 mb-2 truncate" title={nombre}>
+              {nombre}
+            </h2>
+            <div className="h-1 w-12 bg-linear-to-r from-blue-500 to-teal-500 rounded-full group-hover:w-24 transition-all duration-500"></div>
+          </div>
+          
+          <p className="text-slate-300 leading-relaxed line-clamp-3 mb-6 grow text-sm">
+            {descripcion}
           </p>
-        </div>
+          
+          <div className="flex items-center justify-between text-slate-500 text-xs font-medium uppercase tracking-wider mb-6">
+            <span>Ref: {id}</span>
+            <span className={stock > 0 ? "text-teal-400" : "text-red-400"}>
+              {stock > 0 ? "En Stock" : "Agotado"}
+            </span>
+          </div>
 
-        {/* Animated Button & Actions */}
-        <div className="flex items-center justify-between pt-2">
-          <button className="relative w-full overflow-hidden rounded-lg bg-white text-black px-4 py-3 transition-all duration-300 hover:bg-amber-400 hover:text-black group-hover:shadow-[0_0_15px_rgba(251,191,36,0.4)] active:scale-95">
-            <div className="relative z-10 flex items-center justify-center gap-2 font-medium tracking-wide text-sm uppercase">
-              <span>Add to Cart</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-5 h-5"
+          {/* Botones de administrador */}
+          {esAdmin && (
+            <div className="grid grid-cols-2 gap-3 mt-auto pt-4 border-t border-slate-800">
+              <button 
+                onClick={() => eliminar(id)} 
+                className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors duration-300 group/btn"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                />
-              </svg>
+                <svg className="w-5 h-5 transition-transform group-hover/btn:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+                <span>Eliminar</span>
+              </button>
+              
+              <button 
+                onClick={() => editar(id)} 
+                className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-linear-to-r from-blue-600 to-teal-600 text-white font-semibold hover:from-blue-500 hover:to-teal-500 shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-105"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                <span>Editar</span>
+              </button>
             </div>
-          </button>
+          )}
         </div>
       </div>
     </div>

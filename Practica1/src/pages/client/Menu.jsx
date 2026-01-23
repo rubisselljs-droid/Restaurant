@@ -1,23 +1,62 @@
+import { useEffect, useState } from "react";
+import { supabase } from "../../supabase";
 import CartAtent from "../../components/Admin/cartAtent";
-import { useContext } from "react";
-import { ProductoContext } from "../../context/ProductoProvi";
 
 export default function Menu() {
-    const {producto} = useContext(ProductoContext);
-    return (
-        <div className="p-10 flex justify-center">
-            {producto.map((item) => {
-                return (
-                    <CartAtent
-                        key={item.id}
-                        id={item.id}
-                        name={item.name}
-                        image={item.image}
-                        price={item.price}
-                        description={item.description}
-                    />
-                );
-            })}
-        </div>
-    );
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    obtenerProductos();
+  }, []);
+
+  async function obtenerProductos() {
+    const { data, error } = await supabase
+      .from("productos")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (error) {
+      console.log(error);
+    } else {
+      setProductos(data);
+    }
+
+    setLoading(false);
+  }
+
+  if (loading) {
+    return <p>Cargando productos...</p>;
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-teal-500 mb-10 text-center">
+          Nuestro Menú
+        </h1>
+        
+        {productos.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-xl text-gray-500">No hay productos disponibles por el momento.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {productos.map((item) => (
+              <CartAtent
+                key={item.id}
+                id={item.id}
+                nombre={item.nombre}
+                imagen={item.imagen}
+                precio={item.precio}
+                descripcion={item.descripcion}
+                stock={item.stock}
+                esAdmin={false}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
