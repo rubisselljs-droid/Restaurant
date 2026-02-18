@@ -1,29 +1,21 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../supabase";
+import { supabase } from "../../client";
 import CartAtent from "../../components/Admin/cartAtent";
 
 export default function Menu() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    obtenerProductos();
-  }, []);
-
-  async function obtenerProductos() {
-    const { data, error } = await supabase
-      .from("productos")
-      .select("*")
-      .order("id", { ascending: false });
-
-    if (error) {
-      console.log(error);
-    } else {
+  
+    const traerProductos = async () => {
+      const { data } = await supabase.from("productos").select("*");
       setProductos(data);
-    }
-
-    setLoading(false);
-  }
+      setLoading(false);
+    };
+  
+    useEffect(() => {
+      traerProductos();
+    }, []);
 
   if (loading) {
     return <p>Cargando productos...</p>;
@@ -52,6 +44,7 @@ export default function Menu() {
                 descripcion={item.descripcion}
                 stock={item.stock}
                 esAdmin={false}
+                esCliente={true}
               />
             ))}
           </div>

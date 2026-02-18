@@ -8,11 +8,12 @@ export default function CartAtent({
   eliminar,
   editar,
   esAdmin,
+  esCliente,
 }) {
   return (
     <div className="group relative flex flex-col h-full bg-slate-900 rounded-3xl shadow-xl hover:shadow-blue-900/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-slate-800">
       
-      {/* Contenedor de imagen */}
+     
       <div className="relative h-72 overflow-hidden">
         <img 
           src={imagen} 
@@ -20,7 +21,7 @@ export default function CartAtent({
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         
-        {/* Gradiente sobre la imagen para mejorar legibilidad si hubiera texto, o estilo */}
+    
         <div className="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent opacity-90"></div>
         
         {/* Precio Flotante */}
@@ -54,7 +55,7 @@ export default function CartAtent({
             </span>
           </div>
 
-          {/* Botones de administrador */}
+        
           {esAdmin && (
             <div className="grid grid-cols-2 gap-3 mt-auto pt-4 border-t border-slate-800">
               <button 
@@ -78,6 +79,13 @@ export default function CartAtent({
               </button>
             </div>
           )}
+
+
+        {esCliente && (
+          <div className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-teal-500 text-white text-xs font-bold py-1 px-3 rounded-full shadow-lg">
+            <button>COMPRAR</button>
+          </div>
+        )}
         </div>
       </div>
     </div>

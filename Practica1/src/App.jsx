@@ -7,6 +7,9 @@ import Home from './pages/client/Home'
 import Login from './layouts/Login'
 import Admin from './layouts/AdminLayout/Admin'
 import Producto from './pages/admin/Producto'
+import HomeAmd from './pages/admin/homeAmd'
+import Principa from './pages/admin/principa'
+
 const Menu = lazy(() => import('./pages/client/Menu'))
 
 
@@ -23,6 +26,8 @@ function App() {
 
           <Route path="/admin" element={<Admin />}>
             <Route path="producto" element={<Producto />} />
+            <Route path="homeamd" element={<HomeAmd />} />
+            <Route path='principal' element={<Principa />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
